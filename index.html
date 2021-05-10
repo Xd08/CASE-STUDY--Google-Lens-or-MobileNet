@@ -1,0 +1,275 @@
+<html>
+    <head>
+
+        <title>🔎 Google Lens OR MobileNet?</title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.0.0/p5.js"></script>
+    
+      <script src="https://unpkg.com/ml5@latest/dist/ml5.min.js"></script>
+      
+      <link rel="stylesheet" type="text/css" href="style.css">
+    </head>
+
+    <body class="body" background="search.gif">
+        <h3 class="btn btn-info heading">Case Study- Google Lens OR MobileNet?</h3>
+        <h4 style="text-align: center">
+            <br><br>
+             <img src="data:image/png;base64,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" style="width: 150px;">
+            <p>
+                <br>
+                <b class="heading">VS</b>
+            </p>
+            <br>
+            <p class="btn btn-primary" style="font-size: 20px;">Mobilenet </p>
+            </h4>
+        </span>
+
+        <br>
+        <ol>
+        <div class="col-xs-12 packet">
+
+			<ul class="col-sm-4 col-xs-12">
+				<b style="color: royalblue;">Image - </b><img src="SPECTACLES.png" class="img-responsive">
+            </ul>
+			<h5 class="col-sm-4 col-xs-12" >The output on <b>Google Lens</b> was Spectacles
+				<span></span>  
+			</h5>
+			<h5 class="col-sm-4 col-xs-12">The ouput on <b>MobileNet</b> was Sunglasses
+				<span></span>  
+			</h5>
+
+			<div class="col-xs-12">
+				<h4>For this picture, Google Lens was more accurate</h4>
+				<hr>
+				<h4></h4>
+			</div>
+
+		</div>
+    </ol>
+
+
+    <br>
+    <ol>
+    <div class="col-xs-12 packet">
+
+        <ul class="col-sm-4 col-xs-12">
+            <b style="color: royalblue;">Image - </b><img src="CLOCK.png" class="img-responsive">
+        </ul>
+        <h5 class="col-sm-4 col-xs-12" >The output on <b>Google Lens</b> was Analogue Clock
+            <span></span>  
+        </h5>
+        <h5 class="col-sm-4 col-xs-12">The ouput on <b>MobileNet</b> was Stopwatch
+            <span></span>  
+        </h5>
+
+        <div class="col-xs-12">
+            <h4>For this picture, Google Lens was more accurate again!</h4>
+            <hr>
+            <h4></h4>
+        </div>
+
+    </div>
+</ol>
+
+
+<br>
+<ol>
+<div class="col-xs-12 packet">
+
+    <ul class="col-sm-4 col-xs-12">
+        <b style="color: royalblue;">Image - </b><img src="PHONE.png" class="img-responsive">
+    </ul>
+    <h5 class="col-sm-4 col-xs-12" >The output on <b>Google Lens</b> was Phone
+        <span></span>  
+    </h5>
+    <h5 class="col-sm-4 col-xs-12">The ouput on <b>MobileNet</b> was Modem
+        <span></span>  
+    </h5>
+
+    <div class="col-xs-12">
+        <h4>For this picture, Google Lens was more accurate for the third time</h4>
+        <hr>
+        <h4></h4>
+    </div>
+
+</div>
+</ol>
+
+
+<br>
+<ol>
+<div class="col-xs-12 packet">
+
+    <ul class="col-sm-4 col-xs-12">
+        <b style="color: royalblue;">Image - </b><img src="BOTTLE.png" class="img-responsive">
+    </ul>
+    <h5 class="col-sm-4 col-xs-12" >The output on <b>Google Lens</b> was Water Bottle
+        <span></span>  
+    </h5>
+    <h5 class="col-sm-4 col-xs-12">The ouput on <b>MobileNet</b> was Water Bottle
+        <span></span>  
+    </h5>
+
+    <div class="col-xs-12">
+        <h4>For this picture, it was a tie between both models</h4>
+        <hr>
+        <h4></h4>
+    </div>
+
+</div>
+</ol>
+
+
+<br>
+<ol>
+<div class="col-xs-12 packet">
+
+    <ul class="col-sm-4 col-xs-12">
+        <b style="color: royalblue;">Image - </b><img src="SPEAKER.png" class="img-responsive">
+    </ul>
+    <h5 class="col-sm-4 col-xs-12" >The output on <b>Google Lens</b> was Loud Speaker
+        <span></span>
+    </h5>
+    <h5 class="col-sm-4 col-xs-12">The ouput on <b>MobileNet</b> was Loud Speaker
+        <span></span>  
+    </h5>
+
+    <div class="col-xs-12">
+        <h4>For this picture, it was another consecutive tie!</h4>
+        <hr>
+        <h4></h4>
+    </div>
+
+</div>
+</ol>
+
+
+<ol>
+    <div class="col-xs-12 packet">
+    
+        <ul class="col-sm-4 col-xs-12">
+            <b style="color: royalblue;">Image - </b><img src="CAP.png" class="img-responsive">
+        </ul>
+        <h5 class="col-sm-4 col-xs-12" >The output on <b>Google Lens</b> was Baseball Cap
+            <span></span>  
+        </h5>
+        <h5 class="col-sm-4 col-xs-12">The ouput on <b>MobileNet</b> was Computer Mouse
+            <span></span>  
+        </h5>
+    
+        <div class="col-xs-12">
+            <h4>For this picture, Google Lens was more accurate</h4>
+            <hr>
+            <h4></h4>
+        </div>
+    
+    </div>
+    </ol>
+
+
+    <ol>
+        <div class="col-xs-12 packet">
+        
+            <ul class="col-sm-4 col-xs-12">
+                <b style="color: royalblue;">Image - </b><img src="SCISSORS.png" class="img-responsive">
+            </ul>
+            <h5 class="col-sm-4 col-xs-12" >The output on <b>Google Lens</b> was Paper Scissors
+                <span></span>  
+            </h5>
+            <h5 class="col-sm-4 col-xs-12">The ouput on <b>MobileNet</b> was Racket
+                <span></span>  
+            </h5>
+        
+            <div class="col-xs-12">
+                <h4>For this picture, Google Lens was more accurate, though its doesn't to much of a surprise</h4>
+                <hr>
+                <h4></h4>
+            </div>
+        
+        </div>
+        </ol>
+
+
+        <ol>
+            <div class="col-xs-12 packet">
+            
+                <ul class="col-sm-4 col-xs-12">
+                    <b style="color: royalblue;">Image - </b><img src="PEN.png" class="img-responsive">
+                </ul>
+                <h5 class="col-sm-4 col-xs-12" >The output on <b>Google Lens</b> was Push Pen
+                    <span></span>
+                </h5>
+                <h5 class="col-sm-4 col-xs-12">The ouput on <b>MobileNet</b> was Ball Pen
+                    <span></span>  
+                </h5>
+            
+                <div class="col-xs-12">
+                    <h4>For this picture, Google Lens won again</h4>
+                    <hr>
+                    <h4></h4>
+                </div>
+            
+            </div>
+            </ol>
+
+
+            <ol>
+                <div class="col-xs-12 packet">
+                
+                    <ul class="col-sm-4 col-xs-12">
+                        <b style="color: royalblue;">Image - </b><img src="CUBE.png" class="img-responsive">
+                    </ul>
+                    <h5 class="col-sm-4 col-xs-12" >The output on <b>Google Lens</b> was Rubik's Cube
+                        <span></span>  
+                    </h5>
+                    <h5 class="col-sm-4 col-xs-12">The ouput on <b>MobileNet</b> was Lighter
+                        <span></span>  
+                    </h5>
+                
+                    <div class="col-xs-12">
+                        <h4>For this picture, Google Lens is again far more accurate</h4>
+                        <hr>
+                        <h4></h4>
+                    </div>
+                
+                </div>
+                </ol>
+
+
+                <ol>
+                    <div class="col-xs-12 packet">
+                    
+                        <ul class="col-sm-4 col-xs-12">
+                            <b style="color: royalblue;">Image - </b><img src="BALL.png" class="img-responsive">
+                        </ul>
+                        <h5 class="col-sm-4 col-xs-12" >The output on <b>Google Lens</b> was Duce Ball
+                            <span></span>  
+                        </h5>
+                        <h5 class="col-sm-4 col-xs-12">The ouput on <b>MobileNet</b> was Basketball
+                            <span></span>  
+                        </h5>
+                    
+                        <div class="col-xs-12">
+                            <h4>For this picture, Google Lens was more accurate, although the picture is of a Semi-Duce Ball</h4>
+                            <hr>
+                            <h4></h4>
+                        </div>
+                    
+                    </div>
+                    </ol>
+
+                    <br><br>
+	<h4 class="col-xs-12 result">
+	<b>After testing 10 different objects I can conclude,</b><br>that because google lens predicted 8 images far more accurately than MobileNet and in the image with the water bottle, it was a tie. This is what has led me to believe that <b>Google Lens</b> was far more accurate.</h4>
+</div>
+<br><br>
+
+                    <div class="copy_right_footer">
+                        ---Developed by Yuvraj Shah---
+                        </div>
+    </body>
+</html>
