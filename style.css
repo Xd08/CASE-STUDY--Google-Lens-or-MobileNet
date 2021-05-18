@@ -1,0 +1,44 @@
+.heading
+  {
+    font-size: 23px;
+    width: 100%;
+    margin: 0px;
+  }
+
+  .copy_right_footer {
+    position: fixed;
+    bottom:0;
+    color:White;
+    width:100%;
+    text-align: center;
+    line-height: 3;
+    background-color: transparent;
+    margin-bottom: 20px;
+    font-size: 25px;
+    }
+
+ body {
+   background-size: cover;  
+ }
+
+ .packet
+{
+	background: royalblue;
+	padding: 30px;
+	border-radius: 20px;
+	margin-top: 50px;
+	box-shadow: 5px 5px 18px black;
+    width: 90%;
+}
+
+.result
+{
+	box-shadow: 5px 5px 18px lightyellow;
+	letter-spacing: 2px;
+	background: gold;
+	border-radius: 20px;
+	margin-top:50px;
+	padding: 20px;
+	border:2px solid lightseagreen;
+  margin-bottom: 100px;
+}
